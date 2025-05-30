@@ -44,8 +44,8 @@ public class T4ALogin extends JFrame{
         joinButton.setBounds(180, 260,100,50);
         add(joinButton);
 
-        createButton.addActionListener(RoomNanny.createRoom(enterName, this));
-        joinButton.addActionListener(RoomNanny.joinRoom(enterName, this));
+        createButton.addActionListener(T4RoomNanny.createRoomFromLogin(enterName, this));
+        joinButton.addActionListener(T4RoomNanny.joinRoomFromLogin(enterName, this));
 
     }
     @Override

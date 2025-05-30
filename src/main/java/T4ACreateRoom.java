@@ -8,7 +8,7 @@ import java.awt.*;
  * Main interface will be opened
  * 
  * @author Uriel Hernandez-Vega
- * @version 1
+ * @version 2
  */
 public class T4ACreateRoom extends JFrame{
     
@@ -49,7 +49,7 @@ public class T4ACreateRoom extends JFrame{
         create.setBounds(200,400, 100,50);
         add(create);
 
-        create.addActionListener(RoomNanny.switchMainframe(enterName, modesMenu, this));
+        create.addActionListener(T4RoomNanny.createRoomAction(enterName, modesMenu, this));
     }
     @Override
     public Dimension getPreferredSize(){
