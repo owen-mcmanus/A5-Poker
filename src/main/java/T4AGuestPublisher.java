@@ -19,7 +19,7 @@ public class T4AGuestPublisher implements  Runnable, PropertyChangeListener {
             while(true) {
                 if(publishVote && connection.client.isConnected()){
                     T4ABlackboard bb = T4ABlackboard.getInstance();
-                    String message = bb.getSelection() + "," + bb.getUser();
+                    String message = bb.getSelected() + "," + bb.getUser();
                     MqttMessage voteMessage = new MqttMessage(message.getBytes());
                     voteMessage.setQos(2);
                     connection.client.publish(connection.TOPIC_SEND_VOTE + "/" + connection.CLIENT_ID, voteMessage);
