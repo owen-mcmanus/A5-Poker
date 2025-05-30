@@ -3,7 +3,7 @@ import javax.swing.*;
 /**
  * Helper window that holds the NewStoryPanel
  *
- * @author Owen McManus
+ * @author owen-mcmanus
  * @version 1
  */
 public class T4ANewStoryWindow extends JFrame {

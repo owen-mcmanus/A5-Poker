@@ -16,6 +16,8 @@ import java.util.Queue;
  * Active stories is now based on user inputed stories
  *
  * Created a button to remove the top active story
+ *
+ * @author MichaelMan
  */
 
 public class T4ASouthPanel extends JPanel implements PropertyChangeListener {

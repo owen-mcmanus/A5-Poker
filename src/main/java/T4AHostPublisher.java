@@ -8,6 +8,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+/**
+ * Publisher for hosts to room data to the guests
+ *
+ * @author owen-mcmanus
+ * @version 1
+ */
 public class T4AHostPublisher implements  Runnable, PropertyChangeListener {
     private final T4AConnection connection;
     private boolean publishReveal, publishEndReveal = false;
@@ -25,24 +31,26 @@ public class T4AHostPublisher implements  Runnable, PropertyChangeListener {
                 message.setQos(2);
 
                 if (connection.client.isConnected()) {
-                    connection.client.publish(connection.TOPIC_STORY_QUEUE + "/" + connection.CLIENT_ID, message);
-                } else System.out.println("did not connect");
+                    connection.client.publish(connection.TOPIC_CURRENT_ROOM_DATA + "/" + connection.CLIENT_ID, message);
+                }
 
                 if(publishEndReveal && connection.client.isConnected()){
                     MqttMessage revealMessage = new MqttMessage("hideResults".getBytes());
                     revealMessage.setQos(2);
-                    connection.client.publish(connection.TOPIC_ACTIVE_STORY + "/" + connection.CLIENT_ID, revealMessage);
+                    connection.client.publish(connection.TOPIC_HIDE_RESULTS + "/" + connection.CLIENT_ID, revealMessage);
                     publishEndReveal = false;
                 }
 
                 if(publishReveal && connection.client.isConnected()){
                     T4ABlackboard bb = T4ABlackboard.getInstance();
 
+                    // conjoin Integer[] into comma separated String
                     StringBuilder builder = new StringBuilder();
                     for(Integer i : bb.getResultsValues()){
-                        builder.append(Integer.toString(i));
+                        builder.append(i);
                         builder.append(',');
                     }
+
                     String messageValue = String.join(";", String.join(",", bb.getResultsLabels()), builder.toString());
                     MqttMessage revealMessage = new MqttMessage(messageValue.getBytes());
                     revealMessage.setQos(2);
@@ -84,19 +92,6 @@ public class T4AHostPublisher implements  Runnable, PropertyChangeListener {
     private String makeActiveStoryMessage(){
         T4ABlackboard bb = T4ABlackboard.getInstance();
         return  bb.getActiveStory();
-    }
-
-    private String makeVotesMessage(){
-        T4ABlackboard bb = T4ABlackboard.getInstance();
-        Map<String, String> votes = bb.getVotes();
-        StringBuilder builder = new StringBuilder();
-        for(String name : votes.keySet()){
-            builder.append(name);
-            builder.append(",");
-            builder.append(votes.get(name));
-            builder.append(",");
-        }
-        return  builder.toString();
     }
 
     private String makeLayoutMessage(){

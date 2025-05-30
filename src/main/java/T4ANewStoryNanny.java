@@ -7,7 +7,7 @@ import java.util.function.Consumer;
 /**
  * Contains handlers for managing the NewStoryPanel and adding new stories to the app
  *
- * @author Owen McManus
+ * @author owen-mcmanus
  * @version 1
  */
 public class T4ANewStoryNanny {

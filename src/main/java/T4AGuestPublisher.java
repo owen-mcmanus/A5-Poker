@@ -5,6 +5,12 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.Objects;
 
+/**
+ * Publisher for guests to send their vote to the host
+ *
+ * @author owen-mcmanus
+ * @version 1
+ */
 public class T4AGuestPublisher implements  Runnable, PropertyChangeListener {
     private final T4AConnection connection;
     private boolean publishVote = false;
@@ -24,9 +30,8 @@ public class T4AGuestPublisher implements  Runnable, PropertyChangeListener {
                     voteMessage.setQos(2);
                     connection.client.publish(connection.TOPIC_SEND_VOTE + "/" + connection.CLIENT_ID, voteMessage);
                     publishVote = false;
-                    System.out.println("publish vote!");
                 }
-                Thread.sleep(500);
+                Thread.sleep(300);
             }
         }catch (MqttException | InterruptedException e){
             e.printStackTrace();

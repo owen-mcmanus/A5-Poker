@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
-/*
+
+/**
  * This class is for the mainframe where frames will be shown together
  * Just setting main space with quick mockup of other 3 frames
  * 
@@ -8,7 +9,6 @@ import java.awt.*;
  * @version 1
  * 
  */
-
 public class T4MainInterface extends JFrame {
 
     public T4MainInterface(){

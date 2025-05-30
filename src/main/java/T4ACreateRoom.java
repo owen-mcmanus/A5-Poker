@@ -1,4 +1,3 @@
-
 import javax.swing.*;
 import java.awt.*;
 
@@ -10,7 +9,6 @@ import java.awt.*;
  * @author Uriel Hernandez-Vega
  * @version 1
  */
-
 public class T4ACreateRoom extends JFrame{
     
     public T4ACreateRoom(){

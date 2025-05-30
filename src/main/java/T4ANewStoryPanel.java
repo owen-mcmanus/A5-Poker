@@ -4,7 +4,7 @@ import java.awt.*;
 /**
  * Panel for adding/importing new user sotires to the app
  *
- * @author Owen McManus
+ * @author owen-mcmanus
  * @version 1
  */
 public class T4ANewStoryPanel extends JPanel {

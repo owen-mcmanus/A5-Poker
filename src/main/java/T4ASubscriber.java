@@ -20,13 +20,10 @@ public class T4ASubscriber implements MqttCallback {
 
         try {
             connection.client.setCallback(this);
-            connection.client.subscribe(connection.TOPIC_ACTIVE_STORY + "/#");
-            connection.client.subscribe(connection.TOPIC_COMPLETED_STORY + "/#");
-            connection.client.subscribe(connection.TOPIC_VOTES + "/#");
+            connection.client.subscribe(connection.TOPIC_CURRENT_ROOM_DATA + "/#");
             connection.client.subscribe(connection.TOPIC_SHOW_RESULTS + "/#");
-            connection.client.subscribe(connection.TOPIC_STORY_QUEUE + "/#");
+            connection.client.subscribe(connection.TOPIC_HIDE_RESULTS + "/#");
             connection.client.subscribe(connection.TOPIC_SEND_VOTE + "/#");
-            connection.client.subscribe(connection.TOPIC_LAYOUT + "/#");
         } catch (MqttException e) {
             e.printStackTrace();
         }
@@ -43,7 +40,7 @@ public class T4ASubscriber implements MqttCallback {
             return;
         }
 
-        if(topic.startsWith(connection.TOPIC_STORY_QUEUE)){
+        if(topic.startsWith(connection.TOPIC_CURRENT_ROOM_DATA)){
             String[] message  = new String(mqttMessage.getPayload()).split(";");
             handleMessageQueue(message[0]);
             handleStoryCompleted(message[1]);
@@ -54,24 +51,13 @@ public class T4ASubscriber implements MqttCallback {
         T4ABlackboard blackboard = T4ABlackboard.getInstance();
         if(blackboard.isHost()){
             if(topic.startsWith(connection.TOPIC_SEND_VOTE)){
-                String[] rawData = new String(mqttMessage.getPayload()).split(",");
-                blackboard.addVote(rawData[0], rawData[1], false);
+                handleSendVote(new String(mqttMessage.getPayload()));
             }
         }else{
             if(topic.startsWith(connection.TOPIC_SHOW_RESULTS)){
-                String[] rawData = new String(mqttMessage.getPayload()).split(";");
-                List<String> labels = List.of(rawData[0].split(","));
-                blackboard.setResultsLabels(labels.toArray(new String[0]));
-
-                Integer[] values = Arrays.stream(rawData[1].split(","))
-                        .map(String::trim)
-                        .map(Integer::valueOf)
-                        .toArray(Integer[]::new);
-                blackboard.setResultsValues(values);
-                nanny.switchToResultsGUI();
-
+                handleShowResults(new String(mqttMessage.getPayload()));
             }
-            if(topic.startsWith(connection.TOPIC_ACTIVE_STORY)){
+            if(topic.startsWith(connection.TOPIC_HIDE_RESULTS)){
                 nanny.switchToCardsGUI();
             }
         }
@@ -123,6 +109,26 @@ public class T4ASubscriber implements MqttCallback {
 
     private void handleLayout(String rawData){
         T4ABlackboard.getInstance().setCardLayout(rawData);
+    }
+
+    private void handleSendVote(String rawData){
+        String[] data = rawData.split(",");
+        T4ABlackboard.getInstance().addVote(data[0], data[1], false);
+    }
+
+    private void handleShowResults(String rawData){
+        T4ABlackboard blackboard = T4ABlackboard.getInstance();
+        String[] data = rawData.split(";");
+        List<String> labels = List.of(data[0].split(","));
+        blackboard.setResultsLabels(labels.toArray(new String[0]));
+
+        Integer[] values = Arrays.stream(data[1].split(","))
+                .map(String::trim)
+                .map(Integer::valueOf)
+                .toArray(Integer[]::new);
+        blackboard.setResultsValues(values);
+
+        nanny.switchToResultsGUI();
     }
 
     @Override

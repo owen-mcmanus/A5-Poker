@@ -7,8 +7,7 @@ import java.util.Map;
  * Contains handlers for managing the general control of the application.
  * Features include opening the add story panel and showing/hiding results.
  *
- * @author Owen McManus
- * @version 1
+ * @author MichaelMan
  */
 public class T4AUtilitiesNanny {
     T4MainInterface window;
