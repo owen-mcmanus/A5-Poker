@@ -1,7 +1,9 @@
+import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Contains handlers for managing the general control of the application.
@@ -22,6 +24,23 @@ public class T4AUtilitiesNanny {
 
     public void showResults(){
         T4ABlackboard bb = T4ABlackboard.getInstance();
+        if(Objects.equals(bb.getActiveStory(), "")){
+            JOptionPane.showMessageDialog(
+                    window,
+                    "No active story. Press next story.",
+                    "Input Warning",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        if(bb.getVotes().isEmpty()){
+            JOptionPane.showMessageDialog(
+                    window,
+                    "No votes for active story.",
+                    "Input Warning",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
         bb.addCompletedStory(bb.getActiveStory(), calculateResults());
         bb.showResults();
         switchToResultsGUI();
@@ -30,8 +49,15 @@ public class T4AUtilitiesNanny {
     public void switchToNextStory(){
         T4ABlackboard bb = T4ABlackboard.getInstance();
         bb.setActiveStory(bb.dequeueNewStory());
+        if(Objects.equals(bb.getActiveStory(), "")){
+            JOptionPane.showMessageDialog(
+                    window,
+                    "Active story empty. Add new stories.",
+                    "Input Warning",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
         bb.setSelected("");
-        bb.setVotes(new HashMap<>());
         bb.hideResults();
         switchToCardsGUI();
     }
@@ -79,6 +105,8 @@ public class T4AUtilitiesNanny {
 
         bb.setResultsLabels(voteCount.keySet().toArray(new String[0]));
         bb.setResultsValues(voteCount.values().toArray(new Integer[0]));
+
+        bb.setVotes(new HashMap<>());
 
         return sum / votes.size();
     }

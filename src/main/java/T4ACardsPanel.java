@@ -39,11 +39,21 @@ public class T4ACardsPanel extends JPanel implements PropertyChangeListener {
 	}
 
 	private void handleCardClick(JButton card) {
+		T4ABlackboard bb = T4ABlackboard.getInstance();
+
+		if(Objects.equals(bb.getActiveStory(), "")){
+			JOptionPane.showMessageDialog(
+					this,
+					"No active story. Add new stories and press next story.",
+					"Input Warning",
+					JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+
 		if (selectedButton != null) selectedButton.setBackground(baseColor);
 
 		card.setBackground(selectedColor);
 		selectedButton = card;
-		T4ABlackboard bb = T4ABlackboard.getInstance();
 		bb.setSelected(card.getText());
 		bb.addVote(card.getText(), bb.getUser(), true);
 	}
