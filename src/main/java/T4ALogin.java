@@ -2,14 +2,11 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * joinRoom is the frame that will pop up when you want to join a room.
- * Extends JFramea and uses ActionListener to close frame and open main interface
+ * First frame that opens, allows user to enter name
  * 
- * Author Uriel Hernandez-Vega
- * Version 1 
+ * @author Uriel Hernandez-Vega
+ * @version 1
  */
-
-
 public class T4ALogin extends JFrame{
     public static void main(String[] args) {
         JFrame joinRoom = new T4ALogin();

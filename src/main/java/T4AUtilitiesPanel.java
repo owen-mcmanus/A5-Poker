@@ -8,8 +8,7 @@ import java.util.Objects;
  * GUI for managing the general control of the application.
  * Features include opening the add story panel and showing/hiding results.
  *
- * @author Owen McManus
- * @version 1
+ * @author MichaelMan
  */
 public class T4AUtilitiesPanel extends JPanel {
     public T4AUtilitiesPanel(T4AUtilitiesNanny t4AUtilitiesNanny){

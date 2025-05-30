@@ -1,11 +1,13 @@
 import javax.swing.*;
 import java.awt.*;
 
-/*
- * @author owen-mcmanus
+/**
+ * Allows a user to join an existing room by typing in the name
+ *
+ * @author Uriel Hernandez-Vega
+ * @version 1
  */
 public class T4AJoinRoom extends JFrame {
-
     public T4AJoinRoom(){
         setTitle("Join Room");
         setLayout(null);

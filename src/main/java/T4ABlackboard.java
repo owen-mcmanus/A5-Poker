@@ -1,11 +1,10 @@
 import java.beans.PropertyChangeSupport;
 import java.util.*;
 
-
 /**
  * Location for shared app data
  *
- * @author Owen McManus
+ * @author Uriel Hernandez-Vega
  * @version 1
  */
 public class T4ABlackboard extends PropertyChangeSupport {
@@ -14,10 +13,11 @@ public class T4ABlackboard extends PropertyChangeSupport {
     private  String activeStory = "";
     private  String selectedCard = "";
 
-    private String user = "Default User";
+    private String user = "";
 
 
-    private String[] activeRoom = {"", ""};
+    private String activeRoom = "";
+    private String roomLayout = "Standard";
     private Map<String, String> votes = new HashMap<>();
     private boolean isHost = false;
 
@@ -51,9 +51,27 @@ public class T4ABlackboard extends PropertyChangeSupport {
         return story != null ? story : "" ;
     }
 
+    public LinkedList<String> getStoryQueue(){
+        return storyQueue;
+    }
+
+    public void setStoryQueue(LinkedList<String> stories){
+        storyQueue = stories;
+        firePropertyChange("newStory", null, storyQueue);
+    }
+
     public void addCompletedStory(String story, float score){
         completedStory.add(new String[]{story, Float.toString(score)});
         firePropertyChange("completedStory", null, completedStory);
+    }
+
+    public void setCompletedStories(LinkedList<String[]> stories){
+        completedStory = stories;
+        firePropertyChange("completedStory", null, completedStory);
+    }
+
+    public LinkedList<String[]> getCompletedStories(){
+        return completedStory;
     }
 
     public void setActiveStory(String story){
@@ -61,8 +79,16 @@ public class T4ABlackboard extends PropertyChangeSupport {
         firePropertyChange("activeStory", null, activeStory);
     }
 
+    public String getActiveStory(){
+        return activeStory;
+    }
+
     public void setSelected(String value){
         selectedCard = value;
+    }
+
+    public String getSelected(){
+        return selectedCard;
     }
 
     public String getUser(){
@@ -74,40 +100,38 @@ public class T4ABlackboard extends PropertyChangeSupport {
     }
 
     public void addNewRoom(String name, String mode){
-        activeRoom[0] = name;
-        activeRoom[1] = mode;
+        activeRoom = name;
+        roomLayout = mode;
     }
 
     public void joinRoom(String name){
-        activeRoom[0] = name;
-        activeRoom[1] = "Standard";
+        activeRoom = name;
+    }
+
+    public String getRoomId(){
+        return activeRoom;
+    }
+
+    public void setCardLayout(String layout){
+        roomLayout = layout;
+        firePropertyChange("layout", null, layout);
     }
 
     public String getCardLayout(){
-        return activeRoom[1];
-    }
-    public String getRoomId(){
-        return activeRoom[0];
-    }
-
-    public String getSelection(){
-        return selectedCard;
-    }
-
-    public String getActiveStory(){
-        return activeStory;
-    }
-
-    public LinkedList<String> getStoryQueue(){
-        return storyQueue;
-    }
-
-    public LinkedList<String[]> getCompletedStories(){
-        return completedStory;
+        return roomLayout;
     }
 
     public Map<String, String> getVotes(){
         return votes;
+    }
+
+    public void setVotes(Map<String, String> votes){
+        this.votes = votes;
+    }
+
+    public void addVote(String vote , String name, boolean notify){
+        votes.put(name, vote);
+        if(notify) firePropertyChange("submitVote", null, vote);
     }
 
     public void setHost(){
@@ -116,38 +140,6 @@ public class T4ABlackboard extends PropertyChangeSupport {
 
     public boolean isHost(){
         return isHost;
-    }
-
-    public void setCompletedStories(LinkedList<String[]> stories){
-        completedStory = stories;
-        firePropertyChange("completedStory", null, completedStory);
-    }
-
-    public void setStoryQueue(LinkedList<String> stories){
-        storyQueue = stories;
-        firePropertyChange("newStory", null, storyQueue);
-    }
-
-    public void setVotes(Map<String, String> votes){
-        this.votes = votes;
-    }
-
-    public void setCardLayout(String layout){
-        activeRoom[1] = layout;
-        firePropertyChange("layout", null, layout);
-    }
-
-    public void showResults(){
-        firePropertyChange("reveal", null, null);
-    }
-
-    public void hideResults(){
-        firePropertyChange("endReveal", null, null);
-    }
-
-    public void addVote(String vote , String name, boolean notify){
-        votes.put(name, vote);
-        if(notify) firePropertyChange("submitVote", null, vote);
     }
 
     public String[] getResultsLabels() {
@@ -164,5 +156,13 @@ public class T4ABlackboard extends PropertyChangeSupport {
 
     public void setResultsValues(Integer[] resultsValues) {
         this.resultsValues = resultsValues;
+    }
+
+    public void showResults(){
+        firePropertyChange("reveal", null, null);
+    }
+
+    public void hideResults(){
+        firePropertyChange("endReveal", null, null);
     }
 }
