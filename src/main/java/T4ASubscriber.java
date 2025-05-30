@@ -75,36 +75,14 @@ public class T4ASubscriber implements MqttCallback {
         T4ABlackboard blackboard = T4ABlackboard.getInstance();
         String[] data = rawData.split(",");
         LinkedList<String[]> completedStories = new LinkedList<>();
-        for(int i = 0; i < data.length; i++){
-            String[] story = {"", ""};
-            if(i%2 == 0){
-                story[0] = data[i];
-            }else{
-                story[1] = data[i];
-            }
-            completedStories.add(story);
+        for(int i = 0; i < data.length; i+=2){
+            completedStories.add(new String[]{data[i], data[i+1]});
         }
         blackboard.setCompletedStories(completedStories);
     }
 
     private void handleActiveStory(String rawData){
         T4ABlackboard.getInstance().setActiveStory(rawData);
-    }
-
-    private void handleVotes(String rawData){
-        T4ABlackboard blackboard = T4ABlackboard.getInstance();
-        String[] data = rawData.split(",");
-        Map<String, String> votes = new HashMap<>();
-        for(int i = 0; i < data.length; i++){
-            String[] vote = {"", ""};
-            if(i%2 == 0){
-                vote[0] = data[i];
-            }else{
-                vote[1] = data[i];
-            }
-            votes.put(vote[0], vote[1]);
-        }
-        blackboard.setVotes(votes);
     }
 
     private void handleLayout(String rawData){
