@@ -5,7 +5,7 @@ import java.awt.*;
  * Allows a user to join an existing room by typing in the name
  *
  * @author Uriel Hernandez-Vega
- * @version 1
+ * @version 2
  */
 public class T4AJoinRoom extends JFrame {
     public T4AJoinRoom(){
@@ -33,17 +33,11 @@ public class T4AJoinRoom extends JFrame {
         joinButton.setBounds(180, 175,100,50);
         add(joinButton);
 
-        joinButton.addActionListener(e->{
-            String roomName = enterName.getText();
-            if(!roomName.isEmpty()){
-                T4ABlackboard.getInstance().joinRoom(roomName);
+        joinButton.addActionListener(T4RoomNanny.joinRoomAction(enterName, this));
 
-                T4MainInterface m = new T4MainInterface();
-                m.pack();
-                m.setVisible(true);
-                dispose();
-            }
-        });
+
+
+
     }
     @Override
     public Dimension getPreferredSize(){
