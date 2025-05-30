@@ -14,6 +14,7 @@ public class T4ALogin extends JFrame{
     public static void main(String[] args) {
         JFrame joinRoom = new T4ALogin();
         joinRoom.pack();
+        joinRoom.setLocationRelativeTo(null);
         joinRoom.setVisible(true);
     }
 
@@ -46,31 +47,9 @@ public class T4ALogin extends JFrame{
         joinButton.setBounds(180, 260,100,50);
         add(joinButton);
 
-        createButton.addActionListener(e -> {
-            String uname = enterName.getText();
-            if(!uname.isEmpty()){
-                T4ABlackboard.getInstance().setUser(uname);
-                SwingUtilities.invokeLater(() -> {
-                    JFrame createRoom = new T4ACreateRoom();
-                    createRoom.pack();
-                    createRoom.setVisible(true);
-                    dispose();
-                });
-            }
-        });
+        createButton.addActionListener(RoomNanny.createRoom(enterName, this));
+        joinButton.addActionListener(RoomNanny.joinRoom(enterName, this));
 
-        joinButton.addActionListener(e -> {
-            String uname = enterName.getText();
-            if(!uname.isEmpty()){
-                T4ABlackboard.getInstance().setUser(uname);
-                SwingUtilities.invokeLater(() -> {
-                    JFrame joinRoom = new T4AJoinRoom();
-                    joinRoom.pack();
-                    joinRoom.setVisible(true);
-                    dispose();
-                });
-            }
-        });
     }
     @Override
     public Dimension getPreferredSize(){

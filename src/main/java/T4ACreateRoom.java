@@ -5,7 +5,8 @@ import java.awt.*;
 
 /**
  * CreateRoom is the frame that will pop up when you want to create a room.
- * Extends JFrame and uses ActionListener to save room options in a dictionary.
+ * User can enter a room name and select a mode
+ * Main interface will be opened
  * 
  * @author Uriel Hernandez-Vega
  * @version 1
@@ -50,17 +51,7 @@ public class T4ACreateRoom extends JFrame{
         create.setBounds(200,400, 100,50);
         add(create);
 
-        create.addActionListener(e->{
-            String roomName = enterName.getText();
-            if(!roomName.isEmpty()){
-                T4ABlackboard.getInstance().addNewRoom(roomName, (String) modesMenu.getSelectedItem());
-                T4ABlackboard.getInstance().setHost();
-                T4MainInterface m = new T4MainInterface();
-                m.pack();
-                m.setVisible(true);
-                dispose();
-            }
-        });
+        create.addActionListener(RoomNanny.switchMainframe(enterName, modesMenu, this));
     }
     @Override
     public Dimension getPreferredSize(){
