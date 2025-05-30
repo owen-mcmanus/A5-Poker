@@ -3,6 +3,7 @@ import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 
+import javax.swing.*;
 import java.util.*;
 
 /**
@@ -31,7 +32,11 @@ public class T4ASubscriber implements MqttCallback {
 
     @Override
     public void connectionLost(Throwable throwable) {
-        System.out.println("Connection lost: " + throwable.getMessage());
+        JOptionPane.showMessageDialog(
+                null,
+                "Connection lost.",
+                "Connection Error",
+                JOptionPane.ERROR_MESSAGE);
     }
 
     @Override

@@ -1,6 +1,7 @@
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 
+import javax.swing.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.LinkedList;
@@ -32,6 +33,12 @@ public class T4AHostPublisher implements  Runnable, PropertyChangeListener {
 
                 if (connection.client.isConnected()) {
                     connection.client.publish(connection.TOPIC_CURRENT_ROOM_DATA + "/" + connection.CLIENT_ID, message);
+                }else{
+                    JOptionPane.showMessageDialog(
+                            null,
+                            "Connection lost.",
+                            "Connection Error",
+                            JOptionPane.ERROR_MESSAGE);
                 }
 
                 if(publishEndReveal && connection.client.isConnected()){
