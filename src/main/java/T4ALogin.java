@@ -21,9 +21,9 @@ public class T4ALogin extends JFrame{
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
 
-        JLabel join = new JLabel("Join a Room");
+        JLabel join = new JLabel("PlanItPoker");
         join.setFont(new Font("Courier",Font.BOLD,30));
-        join.setBounds(125,0,300,50);
+        join.setBounds(130,0,300,50);
         add(join);
 
 
