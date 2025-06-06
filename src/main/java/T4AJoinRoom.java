@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 /**
  * Allows a user to join an existing room by typing in the name
@@ -8,7 +10,10 @@ import java.awt.*;
  * @version 2
  */
 public class T4AJoinRoom extends JFrame {
+    Logger logger = LoggerFactory.getLogger(T4AJoinRoom.class);
+
     public T4AJoinRoom(){
+        logger.info("JOIN ROOM WINDOW OPEN");
         setTitle("Join Room");
         setLayout(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -18,7 +23,6 @@ public class T4AJoinRoom extends JFrame {
         join.setFont(new Font("Courier",Font.BOLD,30));
         join.setBounds(125,0,300,50);
         add(join);
-
 
         JLabel name = new JLabel("Name:");
         name.setFont(new Font("Courier", Font.BOLD, 30));
@@ -34,9 +38,7 @@ public class T4AJoinRoom extends JFrame {
         add(joinButton);
 
         joinButton.addActionListener(T4RoomNanny.joinRoomAction(enterName, this));
-
-
-
+        logger.info("JOIN ROOM WINDOW CLOSING");
 
     }
     @Override

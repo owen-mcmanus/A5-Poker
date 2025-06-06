@@ -1,3 +1,6 @@
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.beans.PropertyChangeSupport;
 import java.util.*;
 
@@ -30,6 +33,7 @@ public class T4ABlackboard extends PropertyChangeSupport {
     public final int MAIN_WINDOW_HEIGHT = 800;
 
     private static T4ABlackboard instance;
+
 
     private T4ABlackboard(){
         super(new Object());
