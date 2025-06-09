@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.List;
 
 /**
  * Contains handlers for managing the general control of the application.
@@ -84,6 +85,22 @@ public class T4AUtilitiesNanny {
         window.revalidate();
         window.repaint();
     }
+
+    public void openVoteHistoryChartWindow() {
+        T4ABlackboard bb = T4ABlackboard.getInstance();
+        Map<String, List<Number>> voteHistory = bb.getVoteHistory();
+
+        T4AVotingLineChartPanel chartPanel = new T4AVotingLineChartPanel(voteHistory);
+
+        // new window to hold the chart
+        JFrame chartFrame = new JFrame("Voting History Line Chart");
+        chartFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        chartFrame.setSize(800, 600);
+        chartFrame.setLocationRelativeTo(null); // center on screen
+        chartFrame.add(chartPanel);
+        chartFrame.setVisible(true);
+    }
+
 
     private float calculateResults(){
         T4ABlackboard bb = T4ABlackboard.getInstance();

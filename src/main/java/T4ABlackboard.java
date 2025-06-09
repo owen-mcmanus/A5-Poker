@@ -15,6 +15,7 @@ public class T4ABlackboard extends PropertyChangeSupport {
     private LinkedList<String[]> completedStory = new LinkedList<>();
     private  String activeStory = "";
     private  String selectedCard = "";
+    private final Map<String, List<Number>> voteHistory = new HashMap<>();
 
     private String user = "";
 
@@ -136,7 +137,13 @@ public class T4ABlackboard extends PropertyChangeSupport {
     public void addVote(String vote , String name, boolean notify){
         votes.put(name, vote);
         if(notify) firePropertyChange("submitVote", null, vote);
+        voteHistory.computeIfAbsent(name, k -> new ArrayList<>()).add(Float.parseFloat(vote));
     }
+
+    public Map<String, List<Number>> getVoteHistory() {
+        return voteHistory;
+    }
+
 
     public void setHost(){
         isHost = true;
@@ -173,6 +180,7 @@ public class T4ABlackboard extends PropertyChangeSupport {
     public void fakeData() {
         // wasnt sure if you wanted a new room
         //addNewRoom("Test", "Standard");
+        voteHistory.clear();
         addNewStory("STORY 1: ADDING NAMES");
         addNewStory("STORY 2: ADDING CARDS");
         addNewStory("STORY 3: END");
@@ -189,6 +197,10 @@ public class T4ABlackboard extends PropertyChangeSupport {
             for (String user : users) {
                 String vote = possibleVotes[rand.nextInt(possibleVotes.length)];
                 addVote(vote, user, true);
+                System.out.println("Voting: user = [" + user + "], vote = " + vote);
+                if (!user.trim().isEmpty()) {
+                    voteHistory.computeIfAbsent(user, k -> new ArrayList<>()).add(Float.parseFloat(vote));
+                }
             }
 
             Collection<String> allVotes = getVotes().values();

@@ -17,12 +17,15 @@ public class T4AUtilitiesPanel extends JPanel {
             JButton viewResults = new JButton("View Results");
             JButton nextStory = new JButton("Next Story");
             JButton addStory = new JButton("Add Story");
+            JButton showLineChart = new JButton("Show Line Chart");
             add(viewResults);
             add(nextStory);
             add(addStory);
+            add(showLineChart);
             addStory.addActionListener(e -> t4AUtilitiesNanny.openNewStoryWindow());
             viewResults.addActionListener(e -> t4AUtilitiesNanny.showResults());
             nextStory.addActionListener(e -> t4AUtilitiesNanny.switchToNextStory());
+            showLineChart.addActionListener(e -> t4AUtilitiesNanny.openVoteHistoryChartWindow());
         }
 
         JLabel playersTitle = new JLabel("User:");
