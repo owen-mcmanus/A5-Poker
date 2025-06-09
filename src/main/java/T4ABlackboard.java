@@ -169,4 +169,53 @@ public class T4ABlackboard extends PropertyChangeSupport {
     public void hideResults(){
         firePropertyChange("endReveal", null, null);
     }
+
+    public void fakeData() {
+        // wasnt sure if you wanted a new room
+        //addNewRoom("Test", "Standard");
+        addNewStory("STORY 1: ADDING NAMES");
+        addNewStory("STORY 2: ADDING CARDS");
+        addNewStory("STORY 3: END");
+
+        String[] users = {"Alice", "Bob", "Carl", "Dave", "Erick"};
+        String[] possibleVotes = {"1", "2", "3", "5", "8"};
+        Random rand = new Random();
+
+        while (!getStoryQueue().isEmpty()) {
+            String story = dequeueNewStory();
+            setActiveStory(story);
+            setVotes(new HashMap<>());
+
+            for (String user : users) {
+                String vote = possibleVotes[rand.nextInt(possibleVotes.length)];
+                addVote(vote, user, true);
+            }
+
+            Collection<String> allVotes = getVotes().values();
+            float total = 0;
+            for (String vote : allVotes) {
+                total += Float.parseFloat(vote);
+            }
+            float avg = allVotes.isEmpty() ? 0 : total / allVotes.size();
+
+            addCompletedStory(story, avg);
+
+            Map<String, Integer> tally = new HashMap<>();
+            for (String vote : allVotes) {
+                tally.put(vote, tally.getOrDefault(vote, 0) + 1);
+            }
+
+            List<String> sortedLabels = new ArrayList<>(tally.keySet());
+            Collections.sort(sortedLabels);
+            String[] labels = sortedLabels.toArray(new String[0]);
+            Integer[] values = new Integer[labels.length];
+            for (int i = 0; i < labels.length; i++) {
+                values[i] = tally.get(labels[i]);
+            }
+            setResultsLabels(labels);
+            setResultsValues(values);
+
+            showResults();
+        }
+    }
 }
