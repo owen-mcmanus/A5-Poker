@@ -1,3 +1,5 @@
+import org.json.JSONArray;
+
 import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
@@ -35,18 +37,15 @@ public class T4ANewStoryNanny {
         }
     }
 
-    public void importStories(Consumer<String> setText) {
-        JFileChooser fileChooser = new JFileChooser();
-        int result = fileChooser.showOpenDialog(null);
-
-        if (result == JFileChooser.APPROVE_OPTION) {
-            File selectedFile = fileChooser.getSelectedFile();
-            try {
-                String content = new String(Files.readAllBytes(selectedFile.toPath()));
-                setText.accept(content);
-            } catch (IOException e) {
-                System.out.println( "Error: " + e.getMessage());
-            }
+    public void importStories(String username, String password, String id) {
+        try {
+            String authToken = T4ATaigaStoryFetcher.loginAndGetToken(username, password);
+            int projectId = T4ATaigaStoryFetcher.getProjectId(authToken, id);
+            JSONArray stories = T4ATaigaStoryFetcher.fetchUserStories(authToken, projectId);
+            T4ABlackboard.getInstance().setStoryQueue(T4ATaigaStoryFetcher.parseIntoList(stories));
+            window.hideWindow();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
