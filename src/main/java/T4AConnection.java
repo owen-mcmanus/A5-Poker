@@ -1,5 +1,9 @@
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.Arrays;
 
 /**
  * Establishes a connection to an MQTT server for the publisher and subscriber
@@ -29,13 +33,14 @@ public class T4AConnection {
         this.TOPIC_HIDE_RESULTS = String.join("/", TOPIC_HEADER, ROOM_ID, "HIDE_RESULTS");
         this.TOPIC_SEND_VOTE = String.join("/", TOPIC_HEADER, ROOM_ID, "SEND_VOTE");
 
+        Logger logger = LoggerFactory.getLogger(T4AConnection.class);
         try {
             client = new MqttClient(BROKER, CLIENT_ID);
             client.connect();
 
-            System.out.println("Connected to BROKER: " + BROKER);
+            logger.info("Connected to BROKER: " + BROKER);
         } catch (MqttException e) {
-            e.printStackTrace();
+            logger.error("Could not connect to BROKER: {}", Arrays.toString(e.getStackTrace()));
         }
     }
 

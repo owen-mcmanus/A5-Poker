@@ -4,6 +4,8 @@ import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
 import java.util.*;
@@ -15,8 +17,11 @@ import java.util.*;
  * @author  owen-mcmanus
  */
 public class T4ASubscriber implements MqttCallback {
-    T4AConnection connection;
-    T4AUtilitiesNanny nanny;
+    private final T4AConnection connection;
+    private final T4AUtilitiesNanny nanny;
+    private final Logger logger = LoggerFactory.getLogger(T4ASubscriber.class);
+
+
     public T4ASubscriber(T4AConnection connection, T4AUtilitiesNanny nanny){
         this.connection = connection;
         this.nanny = nanny;
@@ -27,13 +32,15 @@ public class T4ASubscriber implements MqttCallback {
             connection.client.subscribe(connection.TOPIC_SHOW_RESULTS + "/#");
             connection.client.subscribe(connection.TOPIC_HIDE_RESULTS + "/#");
             connection.client.subscribe(connection.TOPIC_SEND_VOTE + "/#");
+            logger.info("Subscriber connected");
         } catch (MqttException e) {
-            e.printStackTrace();
+            logger.error("Error connecting subscriber: {}", Arrays.toString(e.getStackTrace()));
         }
     }
 
     @Override
     public void connectionLost(Throwable throwable) {
+        logger.error("Subscriber connection lost");
         JOptionPane.showMessageDialog(
                 null,
                 "Connection lost.",
@@ -84,14 +91,6 @@ public class T4ASubscriber implements MqttCallback {
             completedStories.add(new String[]{completedArray.getJSONArray(i).getString(0), completedArray.getJSONArray(i).getString(1)});
         }
         T4ABlackboard.getInstance().setCompletedStories(completedStories);
-    }
-
-    private void handleActiveStory(String rawData){
-        T4ABlackboard.getInstance().setActiveStory(rawData);
-    }
-
-    private void handleLayout(String rawData){
-        T4ABlackboard.getInstance().setCardLayout(rawData);
     }
 
     private void handleSendVote(String rawData){

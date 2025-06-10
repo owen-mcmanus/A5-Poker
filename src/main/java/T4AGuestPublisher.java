@@ -1,8 +1,11 @@
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.Arrays;
 import java.util.Objects;
 
 /**
@@ -14,6 +17,7 @@ import java.util.Objects;
 public class T4AGuestPublisher implements  Runnable, PropertyChangeListener {
     private final T4AConnection connection;
     private boolean publishVote = false;
+    private final Logger logger = LoggerFactory.getLogger(T4AGuestPublisher.class);
 
     public  T4AGuestPublisher(T4AConnection connection){
         this.connection = connection;
@@ -30,11 +34,12 @@ public class T4AGuestPublisher implements  Runnable, PropertyChangeListener {
                     voteMessage.setQos(2);
                     connection.client.publish(connection.TOPIC_SEND_VOTE + "/" + connection.CLIENT_ID, voteMessage);
                     publishVote = false;
+                    logger.info("Vote sent - name: {}, value:{}", bb.getUser(), bb.getSelected());
                 }
                 Thread.sleep(300);
             }
         }catch (MqttException | InterruptedException e){
-            e.printStackTrace();
+            logger.error("Could not publish vote: {}", Arrays.toString(e.getStackTrace()));
         }
     }
 

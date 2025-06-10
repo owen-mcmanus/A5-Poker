@@ -1,10 +1,8 @@
 import org.json.JSONArray;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import javax.swing.*;
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.util.function.Consumer;
+import java.util.Arrays;
 
 /**
  * Contains handlers for managing the NewStoryPanel and adding new stories to the app
@@ -14,42 +12,23 @@ import java.util.function.Consumer;
  */
 public class T4ANewStoryNanny {
     private final T4ANewStoryWindow window;
+    private final Logger logger = LoggerFactory.getLogger(T4ANewStoryNanny.class);
 
     public T4ANewStoryNanny(T4ANewStoryWindow window) {
         this.window = window;
     }
 
-    public void saveAndAddNew(String text, Runnable reset) {
-        addStories(text);
-        reset.run();
-    }
-
-    public void saveAndClose(String text) {
-        addStories(text);
-        window.hideWindow();
-    }
-
-    private void addStories(String text){
-        String[] stories = text.split("\n");
-        for(String story : stories){
-            if (!story.isEmpty())
-                T4ABlackboard.getInstance().addNewStory(story);
-        }
-    }
-
     public void importStories(String username, String password, String id) {
         try {
+            logger.info("Attempting to get stories with uname:{} and id: {}", username, id);
             String authToken = T4ATaigaStoryFetcher.loginAndGetToken(username, password);
             int projectId = T4ATaigaStoryFetcher.getProjectId(authToken, id);
             JSONArray stories = T4ATaigaStoryFetcher.fetchUserStories(authToken, projectId);
             T4ABlackboard.getInstance().setStoryQueue(T4ATaigaStoryFetcher.parseIntoList(stories));
             window.hideWindow();
+            logger.info("Received {} stories from Taiga", stories.length());
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("Error getting stories from Taiga: {}", Arrays.toString(e.getStackTrace()));
         }
-    }
-
-    public void cancel() {
-        window.hideWindow();
     }
 }

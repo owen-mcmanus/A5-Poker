@@ -1,6 +1,8 @@
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
 import java.beans.PropertyChangeEvent;
@@ -16,6 +18,7 @@ import java.util.*;
 public class T4AHostPublisher implements  Runnable, PropertyChangeListener {
     private final T4AConnection connection;
     private boolean publishReveal, publishEndReveal = false;
+    private final Logger logger = LoggerFactory.getLogger(T4AHostPublisher.class);
 
     public  T4AHostPublisher(T4AConnection connection){
         this.connection = connection;
@@ -36,6 +39,7 @@ public class T4AHostPublisher implements  Runnable, PropertyChangeListener {
                 if (connection.client.isConnected()) {
                     connection.client.publish(connection.TOPIC_CURRENT_ROOM_DATA + "/" + connection.CLIENT_ID, message);
                 }else{
+                    logger.error("Publisher lost connection");
                     JOptionPane.showMessageDialog(
                             null,
                             "Connection lost.",
@@ -48,6 +52,7 @@ public class T4AHostPublisher implements  Runnable, PropertyChangeListener {
                     revealMessage.setQos(2);
                     connection.client.publish(connection.TOPIC_HIDE_RESULTS + "/" + connection.CLIENT_ID, revealMessage);
                     publishEndReveal = false;
+                    logger.info("Publish hide results");
                 }
 
                 if(publishReveal && connection.client.isConnected()){
@@ -62,12 +67,13 @@ public class T4AHostPublisher implements  Runnable, PropertyChangeListener {
                     revealMessage.setQos(2);
                     connection.client.publish(connection.TOPIC_SHOW_RESULTS + "/" + connection.CLIENT_ID, revealMessage);
                     publishReveal = false;
+                    logger.info("Publish show results");
                 }
 
                 Thread.sleep(100);
             }
         }catch (MqttException | InterruptedException e){
-            e.printStackTrace();
+            logger.error("Publisher Error: {}", Arrays.toString(e.getStackTrace()));
         }
     }
 
