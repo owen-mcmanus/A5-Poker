@@ -13,8 +13,8 @@ public class T4ALogin extends JFrame{
         joinRoom.pack();
         joinRoom.setLocationRelativeTo(null);
         joinRoom.setVisible(true);
-        T4ABlackboard bb = T4ABlackboard.getInstance();
-        bb.fakeData();
+//        T4ABlackboard bb = T4ABlackboard.getInstance();
+//        bb.fakeData();
     }
 
     public T4ALogin(){
