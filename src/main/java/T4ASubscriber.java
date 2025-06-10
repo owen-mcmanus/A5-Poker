@@ -2,6 +2,8 @@ import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import javax.swing.*;
 import java.util.*;
@@ -46,11 +48,11 @@ public class T4ASubscriber implements MqttCallback {
         }
 
         if(topic.startsWith(connection.TOPIC_CURRENT_ROOM_DATA)){
-            String[] message  = new String(mqttMessage.getPayload()).split(";");
-            handleMessageQueue(message[0]);
-            handleStoryCompleted(message[1]);
-            handleActiveStory(message[2]);
-            handleLayout(message[3]);
+            JSONObject obj = new JSONObject(new String(mqttMessage.getPayload()));
+            handleMessageQueue(obj.getJSONArray("queue"));
+            handleStoryCompleted(obj.getJSONArray("completed"));
+            T4ABlackboard.getInstance().setActiveStory(obj.getString("active"));
+            T4ABlackboard.getInstance().setCardLayout(obj.getString("layout"));
         }
 
         T4ABlackboard blackboard = T4ABlackboard.getInstance();
@@ -68,24 +70,20 @@ public class T4ASubscriber implements MqttCallback {
         }
     }
 
-    private void handleMessageQueue(String rawData){
-        T4ABlackboard blackboard = T4ABlackboard.getInstance();
-        String[] data = rawData.split(",");
-        LinkedList<String> storyQueue = new LinkedList<>();
-        Collections.addAll(storyQueue, data);
-        blackboard.setStoryQueue(storyQueue);
+    private void handleMessageQueue(JSONArray queueArray){
+        LinkedList<String> queue = new LinkedList<>();
+        for (int i = 0; i < queueArray.length(); i++) {
+            queue.add(queueArray.getString(i));
+        }
+        T4ABlackboard.getInstance().setStoryQueue(queue);
     }
 
-    private void handleStoryCompleted(String rawData){
-        T4ABlackboard blackboard = T4ABlackboard.getInstance();
-        String[] data = rawData.split(",");
+    private void handleStoryCompleted(JSONArray completedArray){
         LinkedList<String[]> completedStories = new LinkedList<>();
-        if(data.length > 1) {
-            for (int i = 0; i < data.length; i += 2) {
-                completedStories.add(new String[]{data[i], data[i + 1]});
-            }
+        for (int i = 0; i < completedArray.length(); i++) {
+            completedStories.add(new String[]{completedArray.getJSONArray(i).getString(0), completedArray.getJSONArray(i).getString(1)});
         }
-        blackboard.setCompletedStories(completedStories);
+        T4ABlackboard.getInstance().setCompletedStories(completedStories);
     }
 
     private void handleActiveStory(String rawData){

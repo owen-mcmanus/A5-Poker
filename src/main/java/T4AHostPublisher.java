@@ -1,13 +1,11 @@
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
+import org.json.JSONObject;
 
 import javax.swing.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * Publisher for hosts to room data to the guests
@@ -27,10 +25,14 @@ public class T4AHostPublisher implements  Runnable, PropertyChangeListener {
     public void run() {
         try{
             while(true) {
-                String value = String.join(";", makeStoryQueueMessage(), makeStoryCompletedMessage(), makeActiveStoryMessage(), makeLayoutMessage());
-                MqttMessage message = new MqttMessage(value.getBytes());
+                T4ABlackboard bb = T4ABlackboard.getInstance();
+                JSONObject payload = new JSONObject()
+                        .put("queue", bb.getStoryQueue())
+                        .put("completed", bb.getCompletedStories())
+                        .put("active", bb.getActiveStory())
+                        .put("layout", bb.getCardLayout());
+                MqttMessage message = new MqttMessage(payload.toString().getBytes());
                 message.setQos(2);
-
                 if (connection.client.isConnected()) {
                     connection.client.publish(connection.TOPIC_CURRENT_ROOM_DATA + "/" + connection.CLIENT_ID, message);
                 }else{
@@ -49,9 +51,6 @@ public class T4AHostPublisher implements  Runnable, PropertyChangeListener {
                 }
 
                 if(publishReveal && connection.client.isConnected()){
-                    T4ABlackboard bb = T4ABlackboard.getInstance();
-
-                    // conjoin Integer[] into comma separated String
                     StringBuilder builder = new StringBuilder();
                     for(Integer i : bb.getResultsValues()){
                         builder.append(i);
@@ -70,40 +69,6 @@ public class T4AHostPublisher implements  Runnable, PropertyChangeListener {
         }catch (MqttException | InterruptedException e){
             e.printStackTrace();
         }
-    }
-
-    private String makeStoryQueueMessage(){
-        T4ABlackboard bb = T4ABlackboard.getInstance();
-        LinkedList<String> sq = bb.getStoryQueue();
-        StringBuilder builder = new StringBuilder();
-        for(String story : sq){
-            builder.append(story);
-            builder.append(",");
-        }
-        return  builder.toString();
-    }
-
-    private String makeStoryCompletedMessage(){
-        T4ABlackboard bb = T4ABlackboard.getInstance();
-        LinkedList<String[]> completedStories = bb.getCompletedStories();
-        StringBuilder builder = new StringBuilder();
-        for(String[] story : completedStories){
-            builder.append(story[0]);
-            builder.append(",");
-            builder.append(story[1]);
-            builder.append(",");
-        }
-        return  builder.toString();
-    }
-
-    private String makeActiveStoryMessage(){
-        T4ABlackboard bb = T4ABlackboard.getInstance();
-        return  bb.getActiveStory();
-    }
-
-    private String makeLayoutMessage(){
-        T4ABlackboard bb = T4ABlackboard.getInstance();
-        return bb.getCardLayout();
     }
 
     @Override
