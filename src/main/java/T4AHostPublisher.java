@@ -33,6 +33,7 @@ public class T4AHostPublisher implements  Runnable, PropertyChangeListener {
                         .put("queue", bb.getStoryQueue())
                         .put("completed", bb.getCompletedStories())
                         .put("active", bb.getActiveStory())
+                        .put("votes", bb.getVoteHistory())
                         .put("layout", bb.getCardLayout());
                 MqttMessage message = new MqttMessage(payload.toString().getBytes());
                 message.setQos(2);

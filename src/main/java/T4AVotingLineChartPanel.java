@@ -19,7 +19,6 @@ import java.util.Map;
 public class T4AVotingLineChartPanel extends JPanel {
 
     public T4AVotingLineChartPanel(Map<String, List<Number>> voteHistory) {
-        System.out.println(voteHistory);
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 
         for (Map.Entry<String, List<Number>> entry : voteHistory.entrySet()) {

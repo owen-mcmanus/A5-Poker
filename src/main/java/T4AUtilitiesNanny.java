@@ -110,7 +110,7 @@ public class T4AUtilitiesNanny {
         Map<String, Integer> voteCount = new HashMap<>();
         for(String name : votes.keySet()){
             String vote = votes.get(name);
-
+            bb.addVoteHistory(vote, name);
             sum += Float.parseFloat(vote);
 
             if(voteCount.containsKey(vote)){
