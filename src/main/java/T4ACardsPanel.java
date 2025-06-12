@@ -5,20 +5,20 @@ import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 /**
+ *
  * Panel that displays the cards used for estimating.
+ * Behaviours are executed by CardsPanelNanny
  * @author MichaelMan
  */
 
 public class T4ACardsPanel extends JPanel implements PropertyChangeListener {
-	private Map<String, String[]> CARD_VALUES = new HashMap<>();
-	private JButton selectedButton = null;
-	private ArrayList<JButton> buttons = new ArrayList<>();
-
+	private final Map<String, String[]> CARD_VALUES = new HashMap<>();
+	private final ArrayList<JButton> buttons = new ArrayList<>();
 	private final Color baseColor = new Color(172, 248, 199);
-	private final Color selectedColor = new Color(248, 172, 199);
+
+	private final T4ACardsPanelNanny nanny;
 
 	public T4ACardsPanel() {
 		CARD_VALUES.put("Standard", new String[]{"0", "0.5", "1", "2", "3", "5", "8", "20", "40", "80", "200", "500"});
@@ -27,49 +27,23 @@ public class T4ACardsPanel extends JPanel implements PropertyChangeListener {
 
 		setLayout(new GridLayout(4, 3, 10, 10));
 
-		for (String value : CARD_VALUES.get(T4ABlackboard.getInstance().getCardLayout())) {
+		nanny = new T4ACardsPanelNanny(this, CARD_VALUES, buttons);
+
+		String[] values = CARD_VALUES.get(T4ABlackboard.getInstance().getCardLayout());
+		for (String value : values) {
 			JButton card = new JButton(value);
 			card.setBackground(baseColor);
 			card.setFont(new Font("SansSerif", Font.BOLD, 20));
-
-			card.addActionListener(e -> handleCardClick(card));
+			card.addActionListener(e -> nanny.handleCardClick(card));
 			buttons.add(card);
 			add(card);
 		}
 	}
 
-	private void handleCardClick(JButton card) {
-		T4ABlackboard bb = T4ABlackboard.getInstance();
-
-		if(Objects.equals(bb.getActiveStory(), "")){
-			JOptionPane.showMessageDialog(
-					this,
-					"No active story. Add new stories and press next story.",
-					"Input Warning",
-					JOptionPane.WARNING_MESSAGE);
-			return;
-		}
-
-		if (selectedButton != null) selectedButton.setBackground(baseColor);
-
-		card.setBackground(selectedColor);
-		selectedButton = card;
-		bb.setSelected(card.getText());
-		bb.addVote(card.getText(), bb.getUser(), true);
-	}
-
 	@Override
-	public void propertyChange(PropertyChangeEvent propertyChangeEvent) {
-		if(Objects.equals(propertyChangeEvent.getPropertyName(), "layout")){
-			for(int i = 0; i < buttons.size(); i++){
-				String[] values = CARD_VALUES.get(propertyChangeEvent.getNewValue().toString());
-				buttons.get(i).setText(values[i]);
-			}
-			repaint();
-			revalidate();
+	public void propertyChange(PropertyChangeEvent evt) {
+		if ("layout".equals(evt.getPropertyName())) {
+			nanny.updateCardLayout(evt.getNewValue().toString());
 		}
 	}
 }
-
-
-

@@ -1,4 +1,6 @@
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import java.util.logging.Level;
 import javax.swing.*;
 import java.awt.*;
 
@@ -12,6 +14,7 @@ import java.awt.*;
 class T4APieChartPanel extends JPanel {
     private String[] labels;
     private Integer[] values;
+    Logger logger = LoggerFactory.getLogger(T4APieChartPanel.class);
 
     public T4APieChartPanel(String[] labels, Integer[] values) {
         this.labels = labels;
@@ -19,7 +22,6 @@ class T4APieChartPanel extends JPanel {
 
 
         setLayout(new BorderLayout());
-        T4ASouthPanel t4ASouthPanel = new T4ASouthPanel();
 
         JLabel storyLabel = new JLabel(T4ABlackboard.getInstance().getActiveStory(), SwingConstants.CENTER);
         storyLabel.setFont(new Font("Arial", Font.BOLD, 18));
@@ -51,7 +53,7 @@ class T4APieChartPanel extends JPanel {
                 try {
                     totalScore += Integer.parseInt(labels[i]) * values[i];
                 } catch (NumberFormatException e) {
-                    // Skip votes
+                    logger.error("Skipping invalid vote label: '{}' at index {}", labels[i], i, e);// Skip votes
                 }
             }
 
