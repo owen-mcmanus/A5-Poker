@@ -17,14 +17,13 @@ import java.util.*;
  * @author  owen-mcmanus
  */
 public class T4ASubscriber implements MqttCallback {
-    private final T4AConnection connection;
     private final T4AUtilitiesNanny nanny;
     private final Logger logger = LoggerFactory.getLogger(T4ASubscriber.class);
 
 
-    public T4ASubscriber(T4AConnection connection, T4AUtilitiesNanny nanny){
-        this.connection = connection;
+    public T4ASubscriber( T4AUtilitiesNanny nanny){
         this.nanny = nanny;
+        T4AConnection connection = T4AConnection.getInstance();
 
         try {
             connection.client.setCallback(this);
@@ -50,6 +49,7 @@ public class T4ASubscriber implements MqttCallback {
 
     @Override
     public void messageArrived(String topic, MqttMessage mqttMessage) {
+        T4AConnection connection = T4AConnection.getInstance();
         if (topic.endsWith("/" + connection.CLIENT_ID)) {
             return;
         }
@@ -63,8 +63,7 @@ public class T4ASubscriber implements MqttCallback {
             T4ABlackboard.getInstance().setCardLayout(obj.getString("layout"));
         }
 
-        T4ABlackboard blackboard = T4ABlackboard.getInstance();
-        if(blackboard.isHost()){
+        if(T4ABlackboard.getInstance().isHost()){
             if(topic.startsWith(connection.TOPIC_SEND_VOTE)){
                 handleSendVote(new String(mqttMessage.getPayload()));
             }

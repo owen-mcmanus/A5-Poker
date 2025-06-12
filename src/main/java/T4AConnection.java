@@ -24,7 +24,9 @@ public class T4AConnection {
     public final String ROOM_ID;
     public MqttClient client;
 
-    public T4AConnection(){
+    private static T4AConnection instance;
+
+    private T4AConnection(){
         this.CLIENT_ID = T4ABlackboard.getInstance().getUser();
         this.ROOM_ID = T4ABlackboard.getInstance().getRoomId();
 
@@ -32,16 +34,26 @@ public class T4AConnection {
         this.TOPIC_SHOW_RESULTS = String.join("/", TOPIC_HEADER, ROOM_ID, "SHOW_RESULTS");
         this.TOPIC_HIDE_RESULTS = String.join("/", TOPIC_HEADER, ROOM_ID, "HIDE_RESULTS");
         this.TOPIC_SEND_VOTE = String.join("/", TOPIC_HEADER, ROOM_ID, "SEND_VOTE");
+    }
 
+    public boolean connect(){
         Logger logger = LoggerFactory.getLogger(T4AConnection.class);
         try {
             client = new MqttClient(BROKER, CLIENT_ID);
             client.connect();
-
             logger.info("Connected to BROKER: " + BROKER);
+            return true;
         } catch (MqttException e) {
             logger.error("Could not connect to BROKER: {}", Arrays.toString(e.getStackTrace()));
+            return false;
         }
+    }
+
+    public static T4AConnection getInstance(){
+        if(instance == null){
+            instance = new T4AConnection();
+        }
+        return instance;
     }
 
 }

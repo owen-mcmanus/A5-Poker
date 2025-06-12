@@ -2,6 +2,7 @@ import org.json.JSONArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.swing.*;
 import java.util.Arrays;
 
 /**
@@ -29,6 +30,11 @@ public class T4ANewStoryNanny {
             logger.info("Received {} stories from Taiga", stories.length());
         } catch (Exception e) {
             logger.error("Error getting stories from Taiga: {}", Arrays.toString(e.getStackTrace()));
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Could not add Taiga stories. Check uname, password, and ID and try again.",
+                    "Taiga Error",
+                    JOptionPane.ERROR_MESSAGE);
         }
     }
 }

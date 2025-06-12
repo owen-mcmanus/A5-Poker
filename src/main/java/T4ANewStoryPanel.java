@@ -24,7 +24,7 @@ public class T4ANewStoryPanel extends JPanel {
         JLabel passwordLabel = new JLabel("Taiga Password:");
         passwordLabel.setFont(new Font("Arial", Font.PLAIN, 15));
         add(passwordLabel);
-        JTextField passwordField = new JTextField();
+        JPasswordField passwordField = new JPasswordField();
         add(passwordField);
 
         JLabel projectIdLabel = new JLabel("Taiga Project ID:");
@@ -35,6 +35,6 @@ public class T4ANewStoryPanel extends JPanel {
 
         JButton importButton = new JButton("Import");
         add(importButton);
-        importButton.addActionListener(e -> storiesNanny.importStories(usernameField.getText(), passwordField.getText(), projectIdField.getText()));
+        importButton.addActionListener(e -> storiesNanny.importStories(usernameField.getText(), new String(passwordField.getPassword()), projectIdField.getText()));
     }
 }

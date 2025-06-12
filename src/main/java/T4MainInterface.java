@@ -27,19 +27,19 @@ public class T4MainInterface extends JFrame {
       JPanel utilitiesPanel = new T4AUtilitiesPanel(utilitiesNanny);
       add(utilitiesPanel, BorderLayout.EAST);
 
-      T4AConnection connection = new T4AConnection();
+      T4AConnection.getInstance().connect();
       if(T4ABlackboard.getInstance().isHost()){
-        T4AHostPublisher publisher = new T4AHostPublisher(connection);
+        T4AHostPublisher publisher = new T4AHostPublisher();
         T4ABlackboard.getInstance().addPropertyChangeListener(publisher);
         Thread t = new Thread(publisher);
         t.start();
       }else{
-        T4AGuestPublisher publisher = new T4AGuestPublisher(connection);
+        T4AGuestPublisher publisher = new T4AGuestPublisher();
         T4ABlackboard.getInstance().addPropertyChangeListener(publisher);
         Thread t = new Thread(publisher);
         t.start();
       }
-      T4ASubscriber sub = new T4ASubscriber(connection, utilitiesNanny);
+      new T4ASubscriber(utilitiesNanny);
     }
 
   @Override

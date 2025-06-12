@@ -3,6 +3,7 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -43,7 +44,7 @@ public class T4ATaigaStoryFetcher {
         JSONObject json = new JSONObject(response.toString());
         if (responseCode != 200) {
             String errorMessage = json.optString("_error_message", "Unknown error");
-            throw new RuntimeException("Login failed: " + errorMessage);
+            logger.error(errorMessage);
         }
         String authToken = json.getString("auth_token");
         logger.info("Received auth token");
