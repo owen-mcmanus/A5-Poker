@@ -10,10 +10,7 @@ import org.slf4j.Logger;
  * @version 2
  */
 public class T4AJoinRoom extends JFrame {
-    Logger logger = LoggerFactory.getLogger(T4AJoinRoom.class);
-
     public T4AJoinRoom(){
-        logger.info("JOIN ROOM WINDOW OPEN");
         setTitle("Join Room");
         setLayout(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -38,7 +35,6 @@ public class T4AJoinRoom extends JFrame {
         add(joinButton);
 
         joinButton.addActionListener(T4RoomNanny.joinRoomAction(enterName, this));
-        logger.info("JOIN ROOM WINDOW CLOSING");
 
     }
     @Override

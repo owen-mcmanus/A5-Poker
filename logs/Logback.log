@@ -1,0 +1,18 @@
+18:23:16.291 [AWT-EventQueue-0] INFO  T4AJoinRoom - JOIN ROOM WINDOW OPEN
+18:23:16.298 [AWT-EventQueue-0] INFO  T4AJoinRoom - JOIN ROOM WINDOW CLOSING
+18:23:16.355 [AWT-EventQueue-0] INFO  T4RoomNanny - Opening join room window
+18:23:32.022 [AWT-EventQueue-0] INFO  T4AConnection - Connected to BROKER: tcp://broker.hivemq.com:1883
+18:23:32.836 [AWT-EventQueue-0] INFO  T4ASubscriber - Subscriber connected
+18:23:32.934 [AWT-EventQueue-0] INFO  T4RoomNanny - Joining room javax.swing.JTextField[,150,110,200x40,layout=javax.swing.plaf.basic.BasicTextUI$UpdateHandler,alignmentX=0.0,alignmentY=0.0,border=javax.swing.plaf.BorderUIResource$CompoundBorderUIResource@235ae730,flags=296,maximumSize=,minimumSize=,preferredSize=,caretColor=sun.swing.PrintColorUIResource[r=51,g=51,b=51],disabledTextColor=javax.swing.plaf.ColorUIResource[r=184,g=207,b=229],editable=true,margin=javax.swing.plaf.InsetsUIResource[top=0,left=0,bottom=0,right=0],selectedTextColor=sun.swing.PrintColorUIResource[r=51,g=51,b=51],selectionColor=javax.swing.plaf.ColorUIResource[r=184,g=207,b=229],columns=0,columnWidth=0,command=,horizontalAlignment=LEADING]
+18:26:49.561 [main] INFO  T4ALogin - Welcome to Plan-It-Poker
+18:26:52.915 [AWT-EventQueue-0] INFO  T4RoomNanny - Opening join room window
+18:27:02.849 [main] INFO  T4ALogin - Welcome to Plan-It-Poker
+18:27:06.250 [AWT-EventQueue-0] INFO  T4RoomNanny - Opening create room window
+18:27:14.216 [AWT-EventQueue-0] INFO  T4AConnection - Connected to BROKER: tcp://broker.hivemq.com:1883
+18:27:15.870 [AWT-EventQueue-0] INFO  T4ASubscriber - Subscriber connected
+18:27:15.909 [AWT-EventQueue-0] INFO  T4RoomNanny - Creating room: test
+18:28:10.415 [main] INFO  T4ALogin - Welcome to Plan-It-Poker
+18:28:17.264 [AWT-EventQueue-0] INFO  T4RoomNanny - Opening join room window
+18:28:29.425 [AWT-EventQueue-0] INFO  T4AConnection - Connected to BROKER: tcp://broker.hivemq.com:1883
+18:28:30.090 [AWT-EventQueue-0] INFO  T4ASubscriber - Subscriber connected
+18:28:30.119 [AWT-EventQueue-0] INFO  T4RoomNanny - Joining room test

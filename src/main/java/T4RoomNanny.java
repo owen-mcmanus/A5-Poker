@@ -1,3 +1,6 @@
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.swing.*;
 import java.awt.event.ActionListener;
 
@@ -12,9 +15,10 @@ import java.awt.event.ActionListener;
  */
 
 public class T4RoomNanny {
-
+    static Logger logger = LoggerFactory.getLogger(T4RoomNanny.class);
     public static ActionListener createRoomFromLogin(JTextField name, JFrame frame) {
         return e -> {
+
             String uname = name.getText().trim();
             if (uname.isEmpty()) {
                 JOptionPane.showMessageDialog(frame, "Please enter a name.", "Input Error", JOptionPane.WARNING_MESSAGE);
@@ -27,6 +31,7 @@ public class T4RoomNanny {
                 createRoom.pack();
                 createRoom.setLocationRelativeTo(null);
                 createRoom.setVisible(true);
+                logger.info("Opening create room window");
                 frame.dispose();
             });
         };
@@ -46,6 +51,7 @@ public class T4RoomNanny {
                 joinRoom.pack();
                 joinRoom.setLocationRelativeTo(null);
                 joinRoom.setVisible(true);
+                logger.info("Opening join room window");
                 frame.dispose();
             });
         };
@@ -65,6 +71,7 @@ public class T4RoomNanny {
                 T4MainInterface m = new T4MainInterface();
                 m.pack();
                 m.setVisible(true);
+                logger.info("Creating room: "+ roomName );
                 frame.dispose();
             });
         };
@@ -83,6 +90,7 @@ public class T4RoomNanny {
                 T4MainInterface m = new T4MainInterface();
                 m.pack();
                 m.setVisible(true);
+                logger.info("Joining room: " + roomName);
                 frame.dispose();
             });
         };

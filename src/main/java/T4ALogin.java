@@ -1,3 +1,6 @@
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -8,13 +11,14 @@ import java.awt.*;
  * @version 1
  */
 public class T4ALogin extends JFrame{
+    static Logger logger = LoggerFactory.getLogger(T4ALogin.class);
+
     public static void main(String[] args) {
         JFrame joinRoom = new T4ALogin();
         joinRoom.pack();
         joinRoom.setLocationRelativeTo(null);
         joinRoom.setVisible(true);
-//        T4ABlackboard bb = T4ABlackboard.getInstance();
-//        bb.fakeData();
+        logger.info("Welcome to Plan-It-Poker");
     }
 
     public T4ALogin(){
