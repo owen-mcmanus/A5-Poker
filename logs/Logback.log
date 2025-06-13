@@ -16,3 +16,86 @@
 18:28:29.425 [AWT-EventQueue-0] INFO  T4AConnection - Connected to BROKER: tcp://broker.hivemq.com:1883
 18:28:30.090 [AWT-EventQueue-0] INFO  T4ASubscriber - Subscriber connected
 18:28:30.119 [AWT-EventQueue-0] INFO  T4RoomNanny - Joining room test
+18:49:51.310 [main] INFO  T4ALogin - Welcome to Plan-It-Poker
+18:50:08.811 [AWT-EventQueue-0] INFO  T4RoomNanny - Opening create room window
+18:50:25.621 [AWT-EventQueue-0] INFO  T4AConnection - Connected to BROKER: tcp://broker.hivemq.com:1883
+18:50:26.896 [AWT-EventQueue-0] INFO  T4ASubscriber - Subscriber connected
+18:50:26.927 [AWT-EventQueue-0] INFO  T4RoomNanny - Creating room: Test
+18:50:51.021 [AWT-EventQueue-0] INFO  T4ASouthPanelNanny - Updated upcoming stories with 0 items.
+18:50:51.022 [AWT-EventQueue-0] INFO  T4ASouthPanelNanny - Active story set to: 
+18:51:55.999 [AWT-EventQueue-0] INFO  T4ANewStoryNanny - Attempting to get stories with uname:RmaUriel and id: omcmanus-plan-it-poker-final-project2
+18:51:57.282 [AWT-EventQueue-0] INFO  T4ATaigaStoryFetcher - Received auth token
+18:51:57.468 [AWT-EventQueue-0] ERROR T4ANewStoryNanny - Error getting stories from Taiga: [java.base/sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:1994), java.base/sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1599), java.base/sun.net.www.protocol.https.HttpsURLConnectionImpl.getInputStream(HttpsURLConnectionImpl.java:223), T4ATaigaStoryFetcher.getProjectId(T4ATaigaStoryFetcher.java:58), T4ANewStoryNanny.importStories(T4ANewStoryNanny.java:26), T4ANewStoryPanel.lambda$new$0(T4ANewStoryPanel.java:38), java.desktop/javax.swing.AbstractButton.fireActionPerformed(AbstractButton.java:1972), java.desktop/javax.swing.AbstractButton$Handler.actionPerformed(AbstractButton.java:2314), java.desktop/javax.swing.DefaultButtonModel.fireActionPerformed(DefaultButtonModel.java:407), java.desktop/javax.swing.DefaultButtonModel.setPressed(DefaultButtonModel.java:262), java.desktop/javax.swing.plaf.basic.BasicButtonListener.mouseReleased(BasicButtonListener.java:279), java.desktop/java.awt.Component.processMouseEvent(Component.java:6621), java.desktop/javax.swing.JComponent.processMouseEvent(JComponent.java:3398), java.desktop/java.awt.Component.processEvent(Component.java:6386), java.desktop/java.awt.Container.processEvent(Container.java:2266), java.desktop/java.awt.Component.dispatchEventImpl(Component.java:4996), java.desktop/java.awt.Container.dispatchEventImpl(Container.java:2324), java.desktop/java.awt.Component.dispatchEvent(Component.java:4828), java.desktop/java.awt.LightweightDispatcher.retargetMouseEvent(Container.java:4948), java.desktop/java.awt.LightweightDispatcher.processMouseEvent(Container.java:4575), java.desktop/java.awt.LightweightDispatcher.dispatchEvent(Container.java:4516), java.desktop/java.awt.Container.dispatchEventImpl(Container.java:2310), java.desktop/java.awt.Window.dispatchEventImpl(Window.java:2780), java.desktop/java.awt.Component.dispatchEvent(Component.java:4828), java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:775), java.desktop/java.awt.EventQueue$4.run(EventQueue.java:720), java.desktop/java.awt.EventQueue$4.run(EventQueue.java:714), java.base/java.security.AccessController.doPrivileged(AccessController.java:400), java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:87), java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:98), java.desktop/java.awt.EventQueue$5.run(EventQueue.java:747), java.desktop/java.awt.EventQueue$5.run(EventQueue.java:745), java.base/java.security.AccessController.doPrivileged(AccessController.java:400), java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:87), java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:744), java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203), java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124), java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113), java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109), java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101), java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)]
+18:52:22.802 [AWT-EventQueue-0] INFO  T4ANewStoryNanny - Attempting to get stories with uname:RmaUriel and id: omcmanus-plan-it-poker-final-project
+18:52:23.602 [AWT-EventQueue-0] INFO  T4ATaigaStoryFetcher - Received auth token
+18:52:24.417 [AWT-EventQueue-0] INFO  T4ATaigaStoryFetcher - Received ID: 1696161 for slug: omcmanus-plan-it-poker-final-project
+18:52:24.644 [AWT-EventQueue-0] INFO  T4ASouthPanelNanny - Updated upcoming stories with 13 items.
+18:52:24.660 [AWT-EventQueue-0] INFO  T4ANewStoryNanny - Received 13 stories from Taiga
+18:54:29.757 [AWT-EventQueue-0] INFO  T4ASouthPanelNanny - Updated upcoming stories with 12 items.
+18:54:29.757 [AWT-EventQueue-0] INFO  T4ASouthPanelNanny - Active story set to: As a user, I want to see the cards on the screen
+18:54:29.757 [AWT-EventQueue-0] DEBUG T4ASouthPanelNanny - Unhandled property change: endReveal
+18:54:30.510 [Thread-5] INFO  T4AHostPublisher - Publish hide results
+18:54:48.011 [AWT-EventQueue-0] INFO  T4ASouthPanelNanny - Completed stories updated with 1 entries.
+18:54:48.011 [AWT-EventQueue-0] DEBUG T4ASouthPanelNanny - Unhandled property change: reveal
+18:54:48.563 [Thread-5] INFO  T4AHostPublisher - Publish show results
+18:54:56.859 [AWT-EventQueue-0] INFO  T4ASouthPanelNanny - Updated upcoming stories with 11 items.
+18:54:56.860 [AWT-EventQueue-0] INFO  T4ASouthPanelNanny - Active story set to: As a user, I want to select a card so that my vote will be recorded for the active story.
+18:54:56.860 [AWT-EventQueue-0] DEBUG T4ASouthPanelNanny - Unhandled property change: endReveal
+18:54:57.481 [Thread-5] INFO  T4AHostPublisher - Publish hide results
+18:55:18.555 [AWT-EventQueue-0] INFO  T4ASouthPanelNanny - Completed stories updated with 2 entries.
+18:55:18.555 [AWT-EventQueue-0] DEBUG T4ASouthPanelNanny - Unhandled property change: reveal
+18:55:19.374 [Thread-5] INFO  T4AHostPublisher - Publish show results
+19:13:14.457 [main] INFO  T4ALogin - Welcome to Plan-It-Poker
+19:13:20.619 [AWT-EventQueue-0] INFO  T4RoomNanny - Opening join room window
+19:13:25.489 [AWT-EventQueue-0] INFO  T4AConnection - Connected to BROKER: tcp://broker.hivemq.com:1883
+19:13:25.729 [MQTT Call: fixed] DEBUG T4ASouthPanelNanny - Unhandled property change: layout
+19:13:26.307 [MQTT Call: fixed] DEBUG T4ASouthPanelNanny - Unhandled property change: layout
+19:13:26.333 [AWT-EventQueue-0] INFO  T4ASubscriber - Subscriber connected
+19:13:26.354 [AWT-EventQueue-0] INFO  T4RoomNanny - Joining room: test
+19:13:26.937 [MQTT Call: fixed] DEBUG T4ASouthPanelNanny - Unhandled property change: layout
+19:13:27.566 [MQTT Call: fixed] DEBUG T4ASouthPanelNanny - Unhandled property change: layout
+19:13:28.207 [MQTT Call: fixed] DEBUG T4ASouthPanelNanny - Unhandled property change: layout
+19:13:28.883 [MQTT Call: fixed] DEBUG T4ASouthPanelNanny - Unhandled property change: layout
+19:13:29.586 [MQTT Call: fixed] DEBUG T4ASouthPanelNanny - Unhandled property change: layout
+19:13:30.211 [MQTT Call: fixed] DEBUG T4ASouthPanelNanny - Unhandled property change: layout
+19:13:30.843 [MQTT Call: fixed] DEBUG T4ASouthPanelNanny - Unhandled property change: layout
+19:13:31.514 [MQTT Call: fixed] DEBUG T4ASouthPanelNanny - Unhandled property change: layout
+19:13:32.102 [MQTT Call: fixed] DEBUG T4ASouthPanelNanny - Unhandled property change: layout
+19:13:32.733 [MQTT Call: fixed] DEBUG T4ASouthPanelNanny - Unhandled property change: layout
+19:13:33.359 [MQTT Call: fixed] DEBUG T4ASouthPanelNanny - Unhandled property change: layout
+19:13:33.990 [MQTT Call: fixed] DEBUG T4ASouthPanelNanny - Unhandled property change: layout
+19:13:34.630 [MQTT Call: fixed] DEBUG T4ASouthPanelNanny - Unhandled property change: layout
+19:13:35.264 [MQTT Call: fixed] DEBUG T4ASouthPanelNanny - Unhandled property change: layout
+19:13:35.894 [MQTT Call: fixed] DEBUG T4ASouthPanelNanny - Unhandled property change: layout
+19:13:36.524 [MQTT Call: fixed] DEBUG T4ASouthPanelNanny - Unhandled property change: layout
+19:13:37.165 [MQTT Call: fixed] DEBUG T4ASouthPanelNanny - Unhandled property change: layout
+19:13:37.802 [MQTT Call: fixed] DEBUG T4ASouthPanelNanny - Unhandled property change: layout
+19:13:38.434 [MQTT Call: fixed] DEBUG T4ASouthPanelNanny - Unhandled property change: layout
+19:13:39.065 [MQTT Call: fixed] DEBUG T4ASouthPanelNanny - Unhandled property change: layout
+19:13:39.694 [MQTT Call: fixed] DEBUG T4ASouthPanelNanny - Unhandled property change: layout
+19:13:40.319 [MQTT Call: fixed] DEBUG T4ASouthPanelNanny - Unhandled property change: layout
+19:13:40.948 [MQTT Call: fixed] DEBUG T4ASouthPanelNanny - Unhandled property change: layout
+19:13:41.576 [MQTT Call: fixed] DEBUG T4ASouthPanelNanny - Unhandled property change: layout
+19:13:42.206 [MQTT Call: fixed] DEBUG T4ASouthPanelNanny - Unhandled property change: layout
+19:13:42.829 [MQTT Call: fixed] DEBUG T4ASouthPanelNanny - Unhandled property change: layout
+19:13:43.482 [MQTT Call: fixed] DEBUG T4ASouthPanelNanny - Unhandled property change: layout
+19:13:44.110 [MQTT Call: fixed] DEBUG T4ASouthPanelNanny - Unhandled property change: layout
+19:13:44.745 [MQTT Call: fixed] DEBUG T4ASouthPanelNanny - Unhandled property change: layout
+19:13:45.374 [MQTT Call: fixed] DEBUG T4ASouthPanelNanny - Unhandled property change: layout
+19:14:04.428 [main] INFO  T4ALogin - Welcome to Plan-It-Poker
+19:14:07.820 [AWT-EventQueue-0] INFO  T4RoomNanny - Opening join room window
+19:14:15.072 [AWT-EventQueue-0] INFO  T4AConnection - Connected to BROKER: tcp://broker.hivemq.com:1883
+19:14:15.753 [AWT-EventQueue-0] INFO  T4ASubscriber - Subscriber connected
+19:14:15.787 [AWT-EventQueue-0] INFO  T4RoomNanny - Joining room: test
+19:15:22.592 [Thread-5] INFO  T4AGuestPublisher - Vote sent - name: ok, value:5
+19:19:34.017 [main] INFO  T4ALogin - Welcome to Plan-It-Poker
+19:19:41.151 [AWT-EventQueue-0] INFO  T4RoomNanny - Opening join room window
+19:19:44.427 [AWT-EventQueue-0] INFO  T4AConnection - Connected to BROKER: tcp://broker.hivemq.com:1883
+19:19:45.107 [AWT-EventQueue-0] INFO  T4ASubscriber - Subscriber connected
+19:19:45.140 [AWT-EventQueue-0] INFO  T4RoomNanny - Joining room: test
+19:20:21.811 [main] INFO  T4ALogin - Welcome to Plan-It-Poker
+19:20:23.336 [AWT-EventQueue-0] INFO  T4RoomNanny - Opening join room window
+19:20:28.120 [AWT-EventQueue-0] INFO  T4AConnection - Connected to BROKER: tcp://broker.hivemq.com:1883
+19:20:28.983 [AWT-EventQueue-0] INFO  T4ASubscriber - Subscriber connected
+19:20:29.012 [AWT-EventQueue-0] INFO  T4RoomNanny - Joining room: test
+19:21:00.457 [Thread-5] INFO  T4AGuestPublisher - Vote sent - name: ffrr, value:40
