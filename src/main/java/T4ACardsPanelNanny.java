@@ -68,7 +68,7 @@ public class T4ACardsPanelNanny {
             }
             panel.repaint();
             panel.revalidate();
-            logger.info("Card layout updated to: {}", layoutType);
+//            logger.info("Card layout updated to: {}", layoutType);
         } catch (Exception e) {
             logger.error("Failed to update card layout: {}", String.valueOf(e));
         }

@@ -23,6 +23,7 @@ public class T4MainInterface extends JFrame {
 
       T4ASouthPanel t4ASouthPanel = new T4ASouthPanel();
       add(t4ASouthPanel, BorderLayout.SOUTH);
+
       T4AUtilitiesNanny utilitiesNanny = new T4AUtilitiesNanny(this);
       JPanel utilitiesPanel = new T4AUtilitiesPanel(utilitiesNanny);
       add(utilitiesPanel, BorderLayout.EAST);

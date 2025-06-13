@@ -35,7 +35,7 @@ public class T4ASouthPanelNanny {
                     StringBuilder builder = new StringBuilder();
                     storiesQueue.forEach(story -> builder.append(story).append("\n"));
                     upcomingArea.setText(builder.toString());
-                    logger.info("Updated upcoming stories with {} items.", storiesQueue.size());
+//                    logger.info("Updated upcoming stories with {} items.", storiesQueue.size());
                 }
 
                 case "completedStory" -> {
@@ -46,13 +46,13 @@ public class T4ASouthPanelNanny {
                         builder.append(story[0]).append(": ").append(story[1]).append("\n");
                     }
                     completedArea.setText(builder.toString());
-                    logger.info("Completed stories updated with {} entries.", storiesList.size());
+//                    logger.info("Completed stories updated with {} entries.", storiesList.size());
                 }
 
                 case "activeStory" -> {
                     String activeStory = (String) evt.getNewValue();
                     activeArea.setText(activeStory);
-                    logger.info("Active story set to: {}", activeStory);
+//                    logger.info("Active story set to: {}", activeStory);
                 }
 
                 default -> {
